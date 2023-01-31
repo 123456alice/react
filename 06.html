@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>React 实例</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        const getValue = (event) => {
+            console.log(event.target.value)
+        }
+
+
+        ReactDOM.render(
+            <div>
+                <button value={true} onClick={getValue}>按下以取得數值 </button>
+            </div>,
+            document.getElementById('root')
+        );
+
+    </script>
+
+</body>
+
+</html>

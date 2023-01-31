@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>React 实例</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+
+        class Baby extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    isRightDad: true,
+                    isGetData: false,
+                    Mom: ""
+                }
+                this.ajaxSimulator = this.ajaxSimulator.bind(this)
+            }
+
+            componentWillMount() {
+                if (this.props.dad !== "Chang")
+                    this.setState({ isRightDad: false })
+            }
+
+            ajaxSimulator() {
+                setTimeout(() => { this.setState({ isGetData: true, Mom: "小美" }) }, 3000)
+            }
+
+            componentDidMount() {
+
+                this.ajaxSimulator();
+                document.getElementById("talk").append("爸!")
+
+            }
+
+            componentWillUnmount() {
+                document.getElementById("talk").innerHTML = "55";
+            }
+
+
+            render() {
+                if (this.state.isGetData === false)
+                    return (
+                        <div id="msg">讀取中</div>
+                    );
+                else
+                    return (
+                        <div id="msg">他的媽媽是{this.state.Mom}</div>
+                    );
+            }
+        }
+
+        class App extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    rate: "",
+                    isBorn: true
+                }
+                this.handleClick = this.handleClick.bind(this);
+                this.spawnBaby = this.spawnBaby.bind(this);
+            }
+
+            handleClick() {
+                this.setState({ isBorn: !this.state.isBorn })
+            }
+
+            spawnBaby() {
+                if (this.state.isBorn)
+                    return <Baby />
+            }
+
+            render() {
+                return (
+                    <div>
+                        <button onClick={this.handleClick}>
+                            {(this.state.isBorn === true) ? "讓他回去肚子裡" : "讓他生"}
+                        </button>
+                        {this.spawnBaby()}
+                    </div>
+                );
+            }
+        }
+        ReactDOM.render(
+            <div>
+                <App />
+                <div id="talk"></div>
+            </div>,
+            document.getElementById('root')
+        );
+
+    </script>
+
+</body>
+
+</html>

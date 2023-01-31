@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>React 实例</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        class Content extends React.Component {
+            render() {
+                return <div>
+                    <input type="text" value={this.props.ppp} onChange={this.props.ccc} maxlength="1" />
+                    <button onClick={this.props.aaa}>ugiui</button>
+                    <h4>{this.props.ppp}</h4>
+                </div>;
+            }
+        }
+        class HelloMessage extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = { value: '', count: '1' };
+                this.handleClick = this.handleClick.bind(this);
+
+            }
+
+
+            handleClick() {
+                var asd = this.state.count + 1;
+                this.setstate({ count: asd });
+            }
+
+            render() {
+                var cccx;
+                return (
+                    <Content ppp={this.state.count}
+                        aaa={this.handleClick}
+                        ccc={(event) => this.setState({ value: event.target.value })}
+                    />
+                )
+                document.getElementById('root');
+            }
+        }
+
+        // class Square extends React.Component {
+        //     render() {
+        //         return (
+        //             <button
+        //                 className="square"
+        //                 onClick={() => this.props.onClick()}
+        //             >
+        //                 {this.props.value}
+        //             </button>
+        //         );
+        //     }
+        // }
+
+        // class Board extends React.Component {
+        //     constructor(props) {
+        //         super(props);
+        //         this.state = {
+        //             squares: Array(9).fill(null),
+        //             xIsNext: true,
+        //         };
+        //     }
+
+        //     handleClick(i) {
+        //         const squares = this.state.squares.slice();
+        //         squares[i] = this.state.xIsNext ? 'X' : 'O';
+        //         this.setState({
+        //             squares: squares,
+        //             xIsNext: !this.state.xIsNext,
+        //         });
+        //     }
+
+        //     alll(event){
+
+        //     }
+        //     renderSquare(i) {
+        //         return (
+        //             <Square
+        //                 value={this.state.squares[i]}
+        //                 onClick={() => this.handleClick(i)}
+        //             />
+        //         );
+        //     }
+
+        //     render() {
+        //         const status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+
+        //         return (
+        //             <div>
+        //                 <div className="status">{status}</div>
+        //                 <div className="board-row">
+        //                     {this.renderSquare(0)}
+        //                     {this.renderSquare(1)}
+        //                     {this.renderSquare(2)}
+        //                 </div>
+        //                 <div className="board-row">
+        //                     {this.renderSquare(3)}
+        //                     {this.renderSquare(4)}
+        //                     {this.renderSquare(5)}
+        //                 </div>
+        //                 <div className="board-row">
+        //                     {this.renderSquare(6)}
+        //                     {this.renderSquare(7)}
+        //                     {this.renderSquare(8)}
+        //                 </div>
+        //             </div>
+        //         );
+        //     }
+        // }
+
+        // class Game extends React.Component {
+        //     render() {
+        //         return (
+        //             <div className="game">
+        //                 <div className="game-board">
+        //                     <Board />
+        //                 </div>
+        //                 <div className="game-info">
+        //                     <div>{/* status */}</div>
+        //                     <ol>{/* TODO */}</ol>
+        //                 </div>
+        //             </div>
+        //         );
+        //     }
+        // }
+
+        // ========================================
+
+        ReactDOM.render(
+            <HelloMessage />,
+            document.getElementById('root')
+        );
+
+    </script>
+
+</body>
+
+</html>

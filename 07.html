@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>React 实例</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        /* 加入下面這一段 */
+
+        function Progress() {
+            const barWidth = "50%";
+            return (
+                <div>
+                    <div className="progress-back" style={{ backgroundColor: "rgba(0,0,0,0.2)", width: "200px", height: "7px", borderRadius: "10px" }}>
+                        <div className="progress-bar" style={{ backgroundColor: "#fe5196", width: barWidth, height: "100%", borderRadius: "10px" }}></div>
+                    </div>
+                </div>
+            );
+        }
+        /* 加入上面這一段 */
+
+        ReactDOM.render(
+            <div>
+                <Progress />
+                <Progress />
+                <Progress />
+            </div>,
+            document.getElementById('root')
+        );
+
+        // If you want your app to work offline and load faster, you can change
+        // unregister() to register() below. Note this comes with some pitfalls.
+        // Learn more about service workers: https://bit.ly/CRA-PWA
+        serviceWorker.unregister();
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>React 实例</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        function App(props) {
+            return (
+                <button onClick={props.handleClick}>{props.name}</button>
+            );
+        }
+        
+        const printMessage = () => {
+            document.getElementById('show-area').innerHTML = "我被按到了";
+        }
+
+        ReactDOM.render(
+            <div>
+                <App name="我的名字" handleClick={printMessage} />
+                <div id="show-area"></div> /*這裡是等等用來改變的地方*/
+            </div>,
+            document.getElementById('root')
+        );
+
+
+    </script>
+
+</body>
+
+</html>

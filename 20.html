@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>React 实例</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const Baby = (props) => {
+            /* 把state變成useState */
+            let [isGetData, setGetData] = React.useState(false);
+            let [Mom, setMom] = React.useState("");
+            let [isRightDad, setRightDad] = React.useState(false);
+
+            /* 把class 的 member function改成function中的function */
+            const ajaxSimulator = () => {
+                setTimeout(() => {
+                    setGetData(true);
+                    setMom("小美");
+                }, 3000)
+            }
+            const checkDad = () => {
+                if (props.dad === "Chang")
+                    setRightDad(true)
+                else
+                    setRightDad(false)
+            }
+            React.useEffect(() => {
+                /* 下面是 componentDidMount */
+
+                ajaxSimulator();
+                document.getElementById("talk").append('爸!')
+
+                /* 上面是 componentDidMount */
+            }, []);
+
+
+            React.useEffect(() => {
+                /* 下面是 componentDidMount和componentDidUpdate */
+
+                checkDad();
+
+                /* 上面是 componentDidMount和componentDidUpdate */
+            }, [props.dad]); /* 加入監控的props.dad */
+
+
+            if (isRightDad === false)
+                return (
+                    <div>他的媽媽，是誰，干你X事</div>
+                );
+            else if (isGetData === false)
+                return (
+                    <div id="msg">讀取中</div>
+                );
+            else
+                return (
+                    <div id="msg">他的媽媽是{Mom}</div>
+                );
+        }
+        const App = () => {
+            let [dad, setDad] = React.useState("Chang");
+            let [born, setBorn] = React.useState(true);
+
+            const changeDad = () => {
+                if (dad === "Chang") {
+                    setDad("Wang")
+                }
+                else {
+                    setDad("Chang")
+                }
+            }
+
+            const spawnBaby = () => {
+                if (born === true) {
+                    return <Baby dad={dad} />;
+                }
+            }
+
+            return (
+                <div>
+                    {spawnBaby()}
+                    <div id="talk"></div>
+                    <button onClick={changeDad}>換爸爸!</button>
+                    <button onClick={() => { setBorn(!born) }}>{(born === true) ? "讓他回去肚子裡" : "讓他生"}</button>
+                </div>
+            );
+        }
+
+        ReactDOM.render(
+            <div>
+                <App />
+                <h1>sfa54</h1>
+            </div>,
+            document.getElementById('root')
+        );
+
+    </script>
+
+</body>
+
+</html>

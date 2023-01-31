@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>React 实例</title>
+
+</head>
+
+<body>
+    <div id="root"></div>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <script type="text/babel">
+
+        const LoginForm = () => {
+            const [account, setAccount] = React.useState("快來輸入我");
+            const [password, setPassword] = React.useState("");
+            const [isCheck, setIsCheck] = React.useState(false);
+            React.useEffect(() => {
+                setTimeout(() => { setAccount("用fetch拿到的資料") }, 2000);
+            }, [])
+
+
+            return (
+                <div>
+                    <input type="text" defaultValue={account} onChange={(e) => { setAccount(e.target.value) }} />
+                    <div>
+                        目前account:{account}
+                    </div>
+                    <button onClick={() => { setAccount("") }}>用按鍵取得新的account</button>
+                    <br/>
+                    <input type="radio" value="123" checked={isCheck} onChange={(e) => { setIsCheck(true) }} />123<br />
+                    <input type="radio" value="456" checked={!isCheck} onChange={(e) => { setIsCheck(false) }} />456
+                </div>
+            )
+        }
+
+
+        ReactDOM.render( //在App標籤中加入name屬性
+            <LoginForm />,
+            document.getElementById('root')
+        );
+    </script>
+
+</body>
+
+</html>

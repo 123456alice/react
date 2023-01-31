@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>React 实例</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        /* 加入下面這一段 */
+
+
+        const FirstPage = () => {
+            const StyleSheet = {
+                width: "100vw",
+                height: "100vh",
+                backgroundColor: "#FF2E63",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "column"
+            }
+            return (
+                <div style={StyleSheet}>
+                    <h1 style={{ color: "white", fontFamily: "Microsoft JhengHei" }}>我是第一頁</h1>
+                </div>
+            )
+        }
+
+        const SecondPage = () => {
+            const StyleSheet = {
+                width: "100vw",
+                height: "100vh",
+                backgroundColor: "#08D9D6",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "column"
+            }
+            return (
+                <div style={StyleSheet}>
+                    <h1 style={{ color: "white", fontFamily: "Microsoft JhengHei" }}>我是第二頁</h1>
+                </div>
+            )
+        }
+
+        const App = () => {
+            return (
+                <React.HashRouter>
+                    <React.Route path="/" component={FirstPage} />
+                </React.HashRouter>
+            );
+        }
+
+
+        ReactDOM.render( //在App標籤中加入name屬性
+            <App />,
+            document.getElementById('root')
+        );
+    </script>
+
+</body>
+
+</html>

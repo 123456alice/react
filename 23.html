@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>React 实例</title>
+
+</head>
+
+<body>
+    <div id="root"></div>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <script type="text/babel">
+
+
+        const App = () => {
+            const [value, setValue] = React.useState(10);
+            return (
+                <ProgressDIY value={value} onClick={(e) => { setValue(e.target.value) }} />
+            );
+        }
+
+        const ProgressDIY = (props) => {
+            const [percent, setPercent] = React.useState(10);
+
+            const mounted = React.useRef();
+            const tm = React.useRef();
+            const tmTwo = React.useRef();
+
+            React.useEffect(() => {
+                if (!mounted.current) {//componentDidMount
+                    setPercent(props.value);
+                    mounted.current = true;
+                }
+                else { //componentDidUpdate
+                    if (percent > props.value) {
+                        if (tm.current)
+                            clearTimeout(tm.current)
+                            console.log(tm.current);
+
+                        tmTwo.current = setTimeout(() => { setPercent(percent - 1) }, 20);
+                    }
+                    else if (percent < props.value) {
+                        if (tmTwo.current)//percent 現在
+                            clearTimeout(tmTwo.current)
+                            console.log(tmTwo.current);
+
+                        tm.current = setTimeout(() => { setPercent(percent + 1) }, 20);
+                    }
+                }
+
+            }, [props.value, percent]);
+
+
+
+            return (
+                <div>
+                    <div className="progress-back" style={{ backgroundColor: "rgba(0,0,0,0.2)", width: "200px", height: "7px", borderRadius: "10px" }}>
+                        <div className="progress-bar" style={{ backgroundColor: "#fe5196", width: percent.toString() + "%", height: "100%", borderRadius: "10px" }}></div>
+                    </div>
+                    目前比率: {percent}%
+                    <button value={90} onClick={props.onClick}>增加比率至90</button>
+                    <button value={10} onClick={props.onClick}>減少比率至10</button>
+                </div>
+            )
+        }
+
+
+        ReactDOM.render( //在App標籤中加入name屬性
+            <App />,
+            document.getElementById('root')
+        );
+    </script>
+
+</body>
+
+</html>

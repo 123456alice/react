@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>React 实例</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      
+class Baby extends React.Component{
+  constructor(props) {
+    super(props);
+    this.state={
+        isRightDad: true,
+        isGetData: false,
+        Mom: ""
+    }
+    this.ajaxSimulator=this.ajaxSimulator.bind(this)
+    this.scrollTo=this.scrollTo.bind(this);
+  }
+
+
+    ajaxSimulator(){
+        setTimeout(()=>{this.setState({isGetData:true, Mom:"小美"})},3000)
+    }
+
+    scrollTo(){
+        /* 讀取 container元素的scrollLeft */
+        let scrollLeft=document.getElementById('container').scrollLeft; 
+        if(scrollLeft<400){
+            /* 修改 container元素的scrollLeft */
+            document.getElementById('container').scrollLeft=scrollLeft+10;
+            setTimeout(this.scrollTo,20);
+        }
+
+    }
+
+    componentDidMount(){
+        this.ajaxSimulator();
+        this.scrollTo();  // 觸發開場動畫
+    }
+
+
+    render(){
+        return(
+            <div>
+                <div id="msg">
+                    {(this.state.isGetData===false)?"讀取中":"他的媽媽是"+this.state.Mom}
+                </div>
+                <div id="container" style={{width:"400px",overflowX:"scroll"}}>
+                    <div id="left"  style={{width:"800px",fontSize:"30px",textAlign:"center"}}>
+                        {"我是頭 O->---------------< 我是腳，我滑出來囉~ "}
+                    </div>       
+                </div> 
+            </div>
+        )
+
+    }
+}
+        ReactDOM.render(
+            <div>
+                <Baby dad="Chang" />
+                <h1>sfa54</h1>
+            </div>,
+            document.getElementById('root')
+        );
+
+    </script>
+
+</body>
+
+</html>

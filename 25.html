@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>React 实例</title>
+
+</head>
+
+<body>
+    <div id="root"></div>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <script type="text/babel">
+
+
+        const useRWD = () => {
+            const [mobile, setMobile] = React.useState("mobile");
+
+            const handleRWD = () => {
+                if (window.innerWidth > 768)
+                    setMobile("PC");
+                else if (window.innerWidth > 576)
+                    setMobile("tablet");
+                else
+                    setMobile("mobile");
+            }
+
+            React.useEffect(() => {
+
+                window.addEventListener('resize', handleRWD);
+                handleRWD(); //加入此行
+
+                return (() => {
+                    window.removeEventListener('resize', handleRWD);
+                })
+            }, []);
+
+            return mobile;
+        }
+
+        const App = () => {
+            const device = useRWD();
+
+            if (device === "PC")
+                return (<h1 style={{ color: "#354458", fontFamily: "Microsoft JhengHei" }}>電腦</h1>);
+            else if (device === "tablet")
+                return (<h1 style={{ color: "#3a9ad9", fontFamily: "Microsoft JhengHei" }}>平板</h1>);
+            else
+                return (<h1 style={{ color: "#29aba4", fontFamily: "Microsoft JhengHei" }}>手機</h1>);
+        }
+
+        ReactDOM.render( //在App標籤中加入name屬性
+            <App />,
+            document.getElementById('root')
+        );
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>React 实例</title>
+
+</head>
+
+<body>
+    <div id="root"></div>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <script type="text/babel">
+
+
+        const useRate = (value) => {
+            const [rate, setRate] = React.useState(0);
+            const mounted = React.useRef();
+            const tm = React.useRef();
+            const tmTwo = React.useRef();
+
+            React.useEffect(() => {
+                if (!mounted.current) { //componentDidMount
+                    setRate(value);
+                    mounted.current = true;
+                }
+                else { //componentDidUpdate
+                    if (rate > value) {
+                        if (tm.current)
+                            clearTimeout(tm.current)
+                        tmTwo.current = setTimeout(() => { setRate(rate - 1) }, 20);
+                    }
+                    else if (rate < value) {
+                        if (tmTwo.current)
+                            clearTimeout(tmTwo.current)
+                        tm.current = setTimeout(() => { setRate(rate + 1) }, 20);
+                    }
+                }
+
+            }, [value, rate]);
+            return rate;
+        }
+
+        const ProgressDIY = (props) => {
+            const percent = useRate(props.value);
+            return (
+                <div>
+                    <div className="progress-back" style={{ backgroundColor: "rgba(0,0,0,0.2)", width: "200px", height: "7px", borderRadius: "10px" }}>
+                        <div className="progress-bar" style={{ backgroundColor: "#fe5196", width: percent.toString() + "%", height: "100%", borderRadius: "10px" }}></div>
+                    </div>
+                    目前比率: {percent}%
+                    <button value={90} onClick={props.onClick}>增加比率至90</button>
+                    <button value={10} onClick={props.onClick}>減少比率至10</button>
+                </div>
+            )
+        }
+
+        const Cheer = (props) => {
+            const score = useRate(props.value);
+            return (
+                <div>
+                    <h1>美心加油器</h1>
+                    <div>目前分數{score}<br />還有沒有! 再來{88 - score}分!</div>
+                    <button value={Number(props.value) + 1} onClick={props.onClick}>加1分</button>
+                    <button value={Number(props.value) + 7} onClick={props.onClick}>加7分</button>
+                    <button value={Number(props.value) + 10} onClick={props.onClick}>加10分</button>
+                    <button value={0} onClick={props.onClick}>0分</button>
+                </div>
+            )
+        }
+        const App = () => {
+            const [value, setValue] = React.useState(10);
+            const [score, setScore] = React.useState(0);
+
+            return (
+                <div>
+                    <ProgressDIY value={value} onClick={(e) => { setValue(e.target.value) }} />
+                    <Cheer value={score} onClick={(e) => { setScore(e.target.value) }} />
+                </div>
+
+
+            );
+        }
+
+
+
+
+        ReactDOM.render( //在App標籤中加入name屬性
+            <App />,
+            document.getElementById('root')
+        );
+
+    </script>
+
+</body>
+
+</html>

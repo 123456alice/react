@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>React 实例</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        class Baby extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    isRightDad: true
+                }
+            }
+
+            static getDerivedStateFromProps(props, state) {
+                if (props.dad !== "Chang")
+                    return { isRightDad: false }
+            }
+
+            render() {
+                if (this.state.isRightDad === true)
+                    return (
+                        <div>
+                            他的媽媽，是小美
+                        </div>
+                    );
+                else
+                    return (
+                        <div>
+                            他的媽媽，是誰，干你X事
+                        </div>
+                    );
+
+            }
+        }
+
+
+        ReactDOM.render(
+            <div>
+                <Baby dad="Chang" />
+                <h1>sfa54</h1>
+            </div>,
+            document.getElementById('root')
+        );
+
+    </script>
+
+</body>
+
+</html>
